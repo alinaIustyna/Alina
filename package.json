@@ -1,0 +1,22 @@
+{
+  "name": "alina-plastovets",
+  "version": "1.0.0",
+  "main": "index.html",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "@types/lodash": "4.14.182",
+    "@types/p5": "^1.4.2",
+    "lodash": "4.17.21",
+    "p5": "^1.4.1"
+  },
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.6.1"
+  },
+  "keywords": [],
+  "description": ""
+}
