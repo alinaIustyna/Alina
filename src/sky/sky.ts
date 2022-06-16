@@ -1,11 +1,12 @@
 import _ from "lodash";
 import { Color } from "p5";
-import { Weather } from "weather/weather";
+import { Weather } from "../weather/weather";
 import { Cloud } from "./cloud";
 import { Star } from "./star";
 import { Moon } from "./moon";
 import { Sun } from "./sun";
-import { Vector2D } from "utils/vector2d";
+import { Vector2D } from "../utils/vector2d";
+import { canvasHeight } from "../const";
 
 const getCurrentMinute = () => frameCount % (24 * 60);
 const getCurrentHour = () => getCurrentMinute() / 60;
@@ -28,9 +29,11 @@ export class Sky {
   }
 
   addClouds(n: number) {
+    let previousCloudPosition: number;
     for (let i = 0; i < n; ++i) {
-      const cloud = new Cloud(random(0, 400), random(10, 70));
-      this.clouds.push(cloud);
+      previousCloudPosition = this.clouds.at(-1)?.rightSideX ?? 0;
+      let newCloud = new Cloud(random(previousCloudPosition, 1.1 * previousCloudPosition), random(0.1 * canvasHeight, 0.4 * canvasHeight));
+      this.clouds.push(newCloud);
     }
   }
 

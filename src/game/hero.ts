@@ -1,10 +1,10 @@
 import { result } from "lodash";
 import "p5";
-import { Vector2D } from "utils/vector2d";
-import { Weather } from "weather/weather";
+import { Vector2D } from "../utils/vector2d";
+import { Weather } from "../weather/weather";
 
 export class Hero {
-  constructor(public x: number, public y: number) {}
+  constructor(public x: number, public y: number) { }
 
   update(currentWeather: Weather): Vector2D {
     const speed = this.calculateSpeed();

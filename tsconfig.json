@@ -6,6 +6,7 @@
       "./src/global.d.ts"
     ],
     "moduleResolution": "node",
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "target": "es2022"
   }
 }

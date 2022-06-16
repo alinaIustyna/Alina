@@ -1,12 +1,14 @@
-import { drop } from "lodash";
+import _ from "lodash";
 import "p5";
 import { Color, Vector } from "p5";
-import { Vector2D } from "utils/vector2d";
-import { Weather } from "weather/weather";
+import { Vector2D } from "../utils/vector2d";
+import { Weather } from "../weather/weather";
+import { canvasWidth } from "../const";
 import { Raindrop } from "./raindrop";
 
 export class Cloud {
   public diameter: number;
+  private segmentWidth: number[]
   public droplets: Raindrop[] = [];
   private alpha: number = 255;
   public isFading: boolean;
@@ -14,10 +16,16 @@ export class Cloud {
   private readonly viscousForce: Vector2D = new Vector2D(0, 5);
   private readonly initialY: number;
 
+  get rightSideX() {
+    return this.x + this.diameter;
+  }
+
   constructor(public x, public y) {
     this.diameter = 38;
     this.color = color(209, 204, 255);
     this.initialY = y;
+    this.diameter = .2 * canvasWidth;
+    this.segmentWidth = _.range(0, 4).map(_ => random(this.diameter / 4, this.diameter / 3));
   }
 
   draw() {
@@ -27,10 +35,10 @@ export class Cloud {
 
   drawCloud() {
     fill(this.color);
-    circle(this.x + 3, this.y + 20, 25); //ліве
-    circle(this.x + 27, this.y + 20, 25); //праве
-    circle(this.x + 15, this.y + 10, 25); //верхнє
-    circle(this.x + 15, this.y + 25, 21); //нижнє
+    circle(this.x + 3 / 25 * this.segmentWidth[0], this.y + 20 / 25 * this.segmentWidth[0], this.segmentWidth[0]); //ліве
+    circle(this.x + 27 / 25 * this.segmentWidth[1], this.y + 20 / 25 * this.segmentWidth[1], this.segmentWidth[1]); //праве
+    circle(this.x + 15 / 25 * this.segmentWidth[2], this.y + 10 / 25 * this.segmentWidth[2], this.segmentWidth[2]); //верхнє
+    circle(this.x + 15 / 25 * this.segmentWidth[3], this.y + 25 / 25 * this.segmentWidth[3], this.segmentWidth[3]); //нижнє
   }
 
   startFading() {

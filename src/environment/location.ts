@@ -1,9 +1,9 @@
 import { Weather } from "../weather/weather";
 import { Sky } from "../sky/sky";
-import { Cars } from "game/cars";
-import { Ground } from "ground/buildings";
-import { canvasWidth, canvasHeight } from "const";
-import { Vector2D } from "utils/vector2d";
+import { Cars } from "../game/cars";
+import { Ground } from "../ground/buildings";
+import { canvasWidth, canvasHeight } from "../const";
+import { Vector2D } from "../utils/vector2d";
 import { random } from "lodash";
 
 export class Location {
@@ -15,7 +15,7 @@ export class Location {
   constructor() {
     this.sky = new Sky();
     this.ground = new Ground(canvasWidth, canvasHeight);
-    this.cars = new Cars(random(10, 300), random(300, 360));
+    this.cars = new Cars(random(10, canvasWidth), random(0.85 * canvasHeight, 0.9 * canvasHeight));
   }
 
   public update(currentWeather: Weather, speed: Vector2D) {
@@ -27,6 +27,6 @@ export class Location {
   public draw() {
     this.sky.draw();
     this.ground.drawBuildings();
-    this.cars.draw(200, 300);
+    this.cars.draw();
   }
 }
