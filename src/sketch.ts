@@ -1,15 +1,14 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import "p5";
-import { random } from "lodash";
-import { getCurrentWeather } from "weather/weather";
+import { getCurrentWeather } from "./weather/weather";
 import { Location } from "./environment/location";
 import { Hero } from "./game/hero";
+import { canvasHeight, canvasWidth } from "./const";
 
 const location = new Location();
-const hero = new Hero(100, 380);
+const hero = new Hero(0.25 * canvasWidth, 0.9 * canvasHeight);
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(canvasWidth, canvasHeight);
   frameRate(30);
 }
 

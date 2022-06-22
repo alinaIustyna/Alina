@@ -1,7 +1,7 @@
 import { ratios } from "../utils/ratios";
 import _ from "lodash";
 import { dayTime } from "../const";
-import { Vector2D } from "utils/vector2d";
+import { Vector2D } from "../utils/vector2d";
 
 export class Ground {
   private initialY: number;
@@ -50,8 +50,12 @@ export class Ground {
     noStroke();
     rect(x, y, width, height);
     const [windowW, windowH] = [width * 0.07, height * 0.02];
-    for (let i = 0; i < 40; ++i) {
-      this.drawWindow(x + i, y + 30 * (i % 10), windowW, windowH);
+    const windowRowPadding = 5;
+    const windowColPadding = 5;
+    for (let row = 0; row < 30; ++row) {
+      for (let col = 0; col < 5; ++col) {
+        this.drawWindow(x + col * (windowW + windowColPadding), y + row * (windowH + windowRowPadding), windowW, windowH);
+      }
     }
     if (dayTime() <= 18) {
       fill(31, 46, 37);
@@ -65,7 +69,5 @@ export class Ground {
     const col = color(random(160, 250));
     fill(col);
     rect(x, y, width, height);
-    rect(x, y + 15, width, height);
-    rect(x, y + 15, width, height);
   }
 }
