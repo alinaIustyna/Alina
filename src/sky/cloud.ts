@@ -58,7 +58,7 @@ export class Cloud {
       speed = speed.add(this.viscousForce);
     }
     this.x -= speed.x;
-    this.y -= speed.y;
+    this.y += speed.y;
   }
 
   dropRain() {

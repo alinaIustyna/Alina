@@ -1,3 +1,4 @@
+import { canvasWidth } from "const";
 import "p5";
 import { Vector2D } from "utils/vector2d";
 
@@ -8,7 +9,11 @@ export class Cars {
 
   update(currentWether, Speed: Vector2D) {
     this.offset -= Speed.x;
+    if (keyIsDown(UP_ARROW)) {
+      this.y -= -5 * Speed.y;
+    } 
   }
+
   drawCar(x: number, y: number) {
     fill("red");
     rect(x, y, 22, 15);

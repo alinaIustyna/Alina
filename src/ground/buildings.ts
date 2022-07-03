@@ -11,7 +11,7 @@ export class Ground {
   }
 
   update(currentWeather, speed: Vector2D) {
-    this.y += -1 * speed.y;
+    this.y -=  0.5 * speed.y;
 
     if (this.y > this.initialY) {
       this.y = this.initialY;
