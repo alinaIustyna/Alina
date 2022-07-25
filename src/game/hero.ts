@@ -10,20 +10,22 @@ export class Hero {
 
   update(currentWeather: Weather): Vector2D {
     const speed = this.calculateSpeed();
+    // const speedUp = this.calculateSpeed();
     return speed;
   }
 
   calculateSpeed(): Vector2D {
     let speed = this.speed;
-    if (keyIsDown(UP_ARROW)) {
-      this.speed = speed.add(new Vector2D(0, 2));
-      if (keyIsDown(RIGHT_ARROW)) {
-        this.speed = speed.add(new Vector2D(2, 0));
-      }
-      if (keyIsDown(LEFT_ARROW)) {
-        this.speed = speed.add(new Vector2D(-2, 0));
-      } return this.speed;
+    if (keyIsDown(RIGHT_ARROW)) {
+      this.speed = speed.add(new Vector2D(2, 0));
     }
+    if (keyIsDown(LEFT_ARROW)) {
+      this.speed = speed.add(new Vector2D(-2, 0));
+    } return this.speed;
+
+    if (keyIsDown(UP_ARROW)) {
+      speed = speed.add(new Vector2D(0, 2));
+    } return this.speed;
   }
 
   getVerticies() {

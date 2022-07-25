@@ -6,8 +6,10 @@ export class Cars {
   offset: number = 1;
   private readonly initialyY: number;
   private readonly initialyX: number;
+  width = 100;
+  height = 100;
 
-  constructor(public x, public y, public width, public height) {
+  constructor(public x, public y) {
     this.initialyY = this.y;
   }
 
