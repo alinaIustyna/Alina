@@ -8,26 +8,26 @@ export class Ground {
   private initialY: number;
   private initialX: number;
   constructor(private x: number, private y: number) {
-  this.initialY = this.y;
-  this.initialX = this.x;
+    this.initialY = this.y;
+    this.initialX = this.x;
   }
 
   update(currentWeather, speed: Vector2D) {
-    this.y -=  0.5 * speed.y;
+    this.y -= 0.5 * speed.y;
     this.offset -= 2 * speed.x;
     if (this.y > this.initialY) {
       this.y = this.initialY;
     }
- 
-      if (this.x < this.initialX) {
-        this.x += this.initialX;
-      }
+
+    if (this.x < this.initialX) {
+      this.x += this.initialX;
+    }
   }
 
   drawBuildings() {
     const heights = ratios([0.3, 0.47, 0.3, 0.5, 0.6, 0.4, 0.46, 0.38], this.y);
     const widths = ratios([0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1], this.x);
-    let offset = 0.1 * this.x;
+    let offset = 0.2 * this.x;
     _.zip(widths, heights).forEach(([w, h]) => {
       this.drawBuilding(
         offset,
@@ -50,7 +50,7 @@ export class Ground {
       );
       offset += w;
     });
-         }
+  }
 
   drawBuilding(x: number, y: number, width: number, height: number) {
     noStroke();
@@ -68,7 +68,7 @@ export class Ground {
     } else {
       fill("black");
     }
-    }
+  }
 
   drawWindow(x: number, y: number, width: number, height: number) {
     noStroke();

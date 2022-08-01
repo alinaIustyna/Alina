@@ -9,6 +9,7 @@ export class Cars {
   width = 100;
   height = 100;
 
+
   constructor(public x, public y) {
     this.initialyY = this.y;
   }

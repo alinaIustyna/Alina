@@ -8,8 +8,8 @@ import { Sun } from "./sun";
 import { Vector2D } from "../utils/vector2d";
 import { canvasHeight } from "../const";
 
-const getCurrentMinute = () => frameCount % (24 * 600);
-const getCurrentHour = () => getCurrentMinute() / 600;
+const getCurrentMinute = () => frameCount % (24 * 60);
+const getCurrentHour = () => getCurrentMinute() / 60;
 
 export class Sky {
   color: Color;
@@ -81,8 +81,8 @@ export class Sky {
   drawSkyBg(start: Color, end: Color, startHour: number, endHour: number) {
     const proportion = map(
       getCurrentMinute(),
-      startHour * 600,
-      endHour * 600,
+      startHour * 60,
+      endHour * 60,
       0,
       1
     );

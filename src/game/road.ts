@@ -1,8 +1,8 @@
-import { canvasHeight, canvasWidth } from "const";
+import { canvasHeight, canvasWidth } from "../const";
 import { result } from "lodash";
 import "p5";
-import { ratios } from "utils/ratios";
-import { Vector2D } from "utils/vector2d";
+import { ratios } from "../utils/ratios";
+import { Vector2D } from "../utils/vector2d";
 import { Hero } from "./hero";
 import { Cars } from "./cars";
 import { getCurrentWeather } from "weather/weather";
@@ -13,12 +13,15 @@ export class Road {
     roads: Road[];
     obstacle: Cars;
     height = 100;
-    hero = new Hero(30, 90);
+    width = 100;
+    hero = new Hero(30, 900);
+    roadY = [canvasHeight - 10, canvasWidth - 30, canvasHeight - 50];
 
     constructor(private x: number, private y: number) {
     }
 
-    update(currentRoad: Road, currentWeather) {
+    update() {
+        this.currentRoad = this.y;
         if (keyIsDown(DOWN_ARROW)) {
             this.currentRoad -= 1;
             this.hero.y = this.roads[this.currentRoad].y;
@@ -30,11 +33,12 @@ export class Road {
     }
 
     getVerticies() {
-        const verticie_1 = [this.x, this.y];
-        const verticie_2 = [this.x + width, this.y + this.height];
-        const verticie_3 = [this.x + width, this.y];
-        const verticie_4 = [this.x, this.y + this.height];
-        const verticies = [verticie_1, verticie_2, verticie_3, verticie_4];
+        const verticies = [
+            [this.x, this.y],
+            [this.x, this.y + this.height],
+            [this.x + this.width, this.y + this.height],
+            [this.x + this.width, this.y],
+        ];
         return verticies
     }
 
@@ -49,15 +53,14 @@ export class Road {
         })
     }
 
-    drawRoad(x: number, y) {
-        // let roadY = ratios[window.innerHeight - 40, window.innerHeight - 60, window.innerHeight - 80];
-        line(this.x, this.y, this.x, this.y);
-        fill("white");
-        stroke(10);
+    drawRoad(x: number, y: number) {
+        // this.y = this.roadY
+        fill("orange");
+        rect(0, this.y, canvasWidth, 10);
     }
     draw() {
-        for (let i = 0; i < 3; ++i) {
-            this.drawRoad(this.x, this.y + 20);
+        for (let i = 0; i < 1; ++i) {
+            this.drawRoad(this.x * i, this.y * i + this.offset);
         }
     }
 }
