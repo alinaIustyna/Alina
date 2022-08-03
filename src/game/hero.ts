@@ -38,15 +38,18 @@ export class Hero {
     }
     return this.speed;
   }
+
   calculateSpeedUp(): Vector2D {
     let speed = this.speed;
-    if (keyIsDown(UP_ARROW)) {
+    const spaceKeyCode = 32;
+    if (keyIsDown(spaceKeyCode)) {
       this.speed = speed.add(new Vector2D(0, 2));
     } return this.speed;
   }
 
   draw() {
     fill("white");
-    rect(this.x, this.y, 30, 30);
+    const heroHeight = 30
+    rect(this.x, this.y - heroHeight, heroHeight, 30);
   }
 }
