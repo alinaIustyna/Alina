@@ -6,30 +6,20 @@ import { Vector2D } from "../utils/vector2d";
 import { Hero } from "./hero";
 import { Cars } from "./cars";
 import { getCurrentWeather } from "weather/weather";
-
+export const roadYs = [canvasHeight - 10, canvasWidth - 30, canvasHeight - 50];
 export class Road {
-    currentRoad = 0;
     offset: number = 1;
     roads: Road[];
     obstacle: Cars;
     height = 100;
     width = 100;
     hero = new Hero(30, 900);
-    roadY = [canvasHeight - 10, canvasWidth - 30, canvasHeight - 50];
+    currentRoad = this.y;
 
-    constructor(private x: number, private y: number) {
+    constructor(public x: number, public y: number) {
     }
 
     update() {
-        this.currentRoad = this.y;
-        if (keyIsDown(DOWN_ARROW)) {
-            this.currentRoad -= 1;
-            this.hero.y = this.roads[this.currentRoad].y;
-        }
-        if (keyIsDown(UP_ARROW)) {
-            this.currentRoad += 1;
-            this.hero.y = this.roads[this.currentRoad].y;
-        }
     }
 
     getVerticies() {
@@ -53,14 +43,8 @@ export class Road {
         })
     }
 
-    drawRoad(x: number, y: number) {
-        // this.y = this.roadY
-        fill("orange");
-        rect(0, this.y, canvasWidth, 10);
-    }
     draw() {
-        for (let i = 0; i < 1; ++i) {
-            this.drawRoad(this.x * i, this.y * i + this.offset);
-        }
+        fill("orange");
+        rect(this.x, this.y, canvasWidth, 10);
     }
 }
