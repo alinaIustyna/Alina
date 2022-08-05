@@ -1,12 +1,10 @@
 import { canvasHeight, canvasWidth } from "../const";
 import { result } from "lodash";
 import "p5";
-import { ratios } from "../utils/ratios";
 import { Vector2D } from "../utils/vector2d";
 import { Hero } from "./hero";
 import { Cars } from "./cars";
-import { getCurrentWeather } from "weather/weather";
-export const roadYs = [canvasHeight - 10, canvasWidth - 30, canvasHeight - 50];
+export const roadYs = [canvasHeight - 25, canvasHeight - 45, canvasHeight - 65];
 export class Road {
     offset: number = 1;
     roads: Road[];

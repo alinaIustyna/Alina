@@ -49,7 +49,7 @@ export class Hero {
 
   draw() {
     fill("white");
-    const heroHeight = 30
+    const heroHeight = 30;
     rect(this.x, this.y - heroHeight, heroHeight, 30);
   }
 }
