@@ -4,35 +4,24 @@ import { roadYs } from "./road";
 
 export class Cars {
   offset: number = 1;
-  private readonly initialyY: number;
-  private readonly initialyX: number;
   width = 100;
   height = 100;
 
 
   constructor(public x, public y) {
-    this.initialyY = this.y;
   }
 
   update(currentWether, speed: Vector2D) {
-    this.y += 4 * speed.y;
     this.offset -= 2 * speed.x;
-    if (this.y < this.initialyY) {
-      this.y = this.initialyY;
-    }
-    if (this.x > this.initialyX) {
-      this.x += this.initialyX;
-    }
   }
 
-  drawCar(x: number, y: number) {
-    fill("red");
-    rect(x, y, 20, 15);
-  }
 
   draw() {
     for (let i = 0; i < 1000; ++i) {
-      this.drawCar(this.x * i + this.offset, roadYs[i]);
+      fill("red");
+      rect(this.x * i + this.offset / 1.8, roadYs[0], 20, 15);
+      rect(this.x * i + this.offset / 2, roadYs[1], 20, 15);
+      rect(this.x * i + this.offset / 1.5, roadYs[2], 20, 15);
     }
   }
 }

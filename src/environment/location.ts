@@ -11,7 +11,7 @@ import { Hero } from "../game/hero";
 export class Location {
   private sky: Sky;
   private ground: Ground;
-  private cars: Cars[];
+  private cars: Cars;
   private roads: Road[];
   public currentRoad: number = 0;
 
@@ -24,15 +24,15 @@ export class Location {
     const roadYs = this.roads.map((road) => road.y);
     this.sky = new Sky();
     this.ground = new Ground(canvasWidth, canvasHeight);
-    this.cars = [new Cars(random(0, canvasWidth), roadYs), new Cars(random(0, canvasWidth), roadYs)];
+    this.cars = new Cars(random(0, canvasWidth), roadYs);
     this.hero = new Hero(30, this.roads[0].y);
   }
 
   public update(currentWeather: Weather, speed: Vector2D) {
     this.sky.update(currentWeather, speed.add(this.gravity));
-    this.ground.update(currentWeather, speed.add(this.gravity));
+    this.ground.update(speed.add(this.gravity));
     this.roads.forEach((road: Road) => road.update());
-    this.cars.forEach((cars: Cars) => cars.update(currentWeather, speed));
+    this.cars.update(currentWeather, speed);
 
     if (keyIsDown(DOWN_ARROW)) {
       this.updateCurrentRoad(-1);
@@ -58,7 +58,7 @@ export class Location {
     this.sky.draw();
     this.ground.drawBuildings();
     this.roads.forEach((road: Road) => road.draw());
-    this.cars.forEach((cars: Cars) => cars.draw());
+    this.cars.draw();
     this.hero.draw();
   }
 }

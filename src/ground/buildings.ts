@@ -12,16 +12,9 @@ export class Ground {
     this.initialX = this.x;
   }
 
-  update(currentWeather, speed: Vector2D) {
-    this.y -= 0.5 * speed.y;
+  update(speed: Vector2D) {
+    this.x -= 0.5 * speed.x;
     this.offset -= 2 * speed.x;
-    if (this.y > this.initialY) {
-      this.y = this.initialY;
-    }
-
-    if (this.x < this.initialX) {
-      this.x += this.initialX;
-    }
   }
 
   drawBuildings() {
@@ -79,7 +72,7 @@ export class Ground {
 
   draw() {
     for (let i = 0; i < 1000; ++i) {
-      this.drawBuilding(this.x * i + this.offset, this.y + 20 * (i % 1.5), width, height);
+      this.drawBuilding(this.x * i + this.offset, this.y + 20, width, height);
     }
   }
 }

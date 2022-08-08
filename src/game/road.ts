@@ -31,14 +31,27 @@ export class Road {
     }
 
     checkForCollisions() {
+        // let isCollisions = false;
         const verticies = this.getVerticies()
-        let isCollisions = false;
-        return verticies.some(v => {
-            const [x, y] = v
-            const isInX = x > this.obstacle.x && x < this.obstacle.x + this.obstacle.width;
-            const isInY = y > this.obstacle.y && y < this.obstacle.y + this.obstacle.height;
-            return isInX && isInY;
-        })
+        if (this.hero.x > this.obstacle.x && this.hero.x < this.obstacle.x + this.obstacle.width) {
+            background("black");
+            text('game over', 300, 300);
+        }
+
+        if (this.hero.y > this.obstacle.y && this.hero.y < this.obstacle.y + this.obstacle.height) {
+            background("black");
+            text('game over', 300, 300);
+        }
+
+        // return verticies.some(v => {
+        //     const [x, y] = v;
+        //     return isInX && isInY;
+        // })
+
+        // if (isCollisions = true) { 
+        //     background("black");
+        //     text('game over', 300, 300);
+        // }
     }
 
     draw() {
