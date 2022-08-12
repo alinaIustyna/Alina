@@ -1,6 +1,6 @@
 import { Weather } from "../weather/weather";
 import { Sky } from "../sky/sky";
-import { Cars } from "../game/cars";
+import { Car } from "../game/car";
 import { Ground } from "../ground/buildings";
 import { canvasWidth, canvasHeight } from "../const";
 import { Vector2D } from "../utils/vector2d";
@@ -11,7 +11,7 @@ import { Hero } from "../game/hero";
 export class Location {
   private sky: Sky;
   private ground: Ground;
-  private cars: Cars;
+  private cars: Car[];
   private roads: Road[];
   public currentRoad: number = 0;
 
@@ -22,9 +22,10 @@ export class Location {
   constructor() {
     this.roads = [new Road(0, canvasHeight - 10), new Road(0, canvasHeight - 30), new Road(0, canvasHeight - 50)];
     const roadYs = this.roads.map((road) => road.y);
+    const carsX = random(0, canvasWidth);
     this.sky = new Sky();
     this.ground = new Ground(canvasWidth, canvasHeight);
-    this.cars = new Cars(random(0, canvasWidth), roadYs);
+    this.cars = [new Car(carsX, roadYs[0]), new Car(carsX, roadYs[1]), new Car(carsX, roadYs[2])];
     this.hero = new Hero(30, this.roads[0].y);
   }
 
@@ -32,7 +33,7 @@ export class Location {
     this.sky.update(currentWeather, speed.add(this.gravity));
     this.ground.update(speed.add(this.gravity));
     this.roads.forEach((road: Road) => road.update());
-    this.cars.update(currentWeather, speed);
+    this.cars.forEach((cars: Car) => cars.update(currentWeather, speed));
 
     if (keyIsDown(DOWN_ARROW)) {
       this.updateCurrentRoad(-1);
@@ -58,7 +59,7 @@ export class Location {
     this.sky.draw();
     this.ground.drawBuildings();
     this.roads.forEach((road: Road) => road.draw());
-    this.cars.draw();
+    this.cars.forEach((cars: Car) => cars.draw());
     this.hero.draw();
   }
 }

@@ -3,12 +3,12 @@ import { result } from "lodash";
 import "p5";
 import { Vector2D } from "../utils/vector2d";
 import { Hero } from "./hero";
-import { Cars } from "./cars";
+import { Car } from "./car";
 export const roadYs = [canvasHeight - 25, canvasHeight - 45, canvasHeight - 65];
 export class Road {
     offset: number = 1;
     roads: Road[];
-    obstacle: Cars;
+    obstacle: Car;
     height = 100;
     width = 100;
     hero = new Hero(30, 900);

@@ -9,6 +9,7 @@ export class Hero {
   speed: Vector2D = new Vector2D(0, 0);
   private keyPressedCount = 0;
 
+
   constructor(public x: number, public y: number) {
     const callEveryNMiliSec = 100;
     setInterval(() => {
@@ -45,6 +46,10 @@ export class Hero {
     if (keyIsDown(spaceKeyCode)) {
       this.speed = speed.add(new Vector2D(0, 2));
     } return this.speed;
+  }
+
+  calculateTimePressed() {
+    let timer
   }
 
   draw() {

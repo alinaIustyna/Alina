@@ -13,36 +13,14 @@ export class Ground {
   }
 
   update(speed: Vector2D) {
-    this.x -= 0.5 * speed.x;
-    this.offset -= 2 * speed.x;
+    this.x -= speed.x;
   }
 
   drawBuildings() {
-    const heights = ratios([0.3, 0.47, 0.3, 0.5, 0.6, 0.4, 0.46, 0.38], this.y);
-    const widths = ratios([0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1], this.x);
+    const height = 1.2;
+    const width = 0.01;
     let offset = 0.2 * this.x;
-    _.zip(widths, heights).forEach(([w, h]) => {
-      this.drawBuilding(
-        offset,
-        this.y - h + Math.abs(this.y - this.initialY),
-        w,
-        h
-      );
-      offset += w;
-    });
-
-    offset = 0;
-    _.zip(widths, heights).forEach(([w, h]) => {
-      w = 0.8 * w;
-      h = 1.2 * h;
-      this.drawBuilding(
-        offset,
-        this.y - h + Math.abs(this.y - this.initialY),
-        w,
-        h
-      );
-      offset += w;
-    });
+    this.drawBuilding(offset, this.y, width, height);
   }
 
   drawBuilding(x: number, y: number, width: number, height: number) {
@@ -71,8 +49,6 @@ export class Ground {
   }
 
   draw() {
-    for (let i = 0; i < 1000; ++i) {
-      this.drawBuilding(this.x * i + this.offset, this.y + 20, width, height);
-    }
+    this.drawBuilding(this.x, this.y + 20, width, height);
   }
 }
