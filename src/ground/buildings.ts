@@ -4,24 +4,22 @@ import { dayTime } from "../const";
 import { Vector2D } from "../utils/vector2d";
 
 export class Ground {
+  offset: number = 1;
   private initialY: number;
   private initialX: number;
   constructor(private x: number, private y: number) {
     this.initialY = this.y;
+    this.initialX = this.x;
   }
 
-  update(currentWeather, speed: Vector2D) {
-    this.y -=  0.5 * speed.y;
-
-    if (this.y > this.initialY) {
-      this.y = this.initialY;
-    }
+  update(speed: Vector2D) {
+    this.x -= speed.x;
   }
 
   drawBuildings() {
     const heights = ratios([0.2, 0.47, 0.3, 0.5, 0.6, 0.4, 0.46, 0.38], this.y);
     const widths = ratios([0.13, 0.12, 0.1, 0.07, 0.1, 0.1, 0.1, 0.1], this.x);
-    let offset = 0.1 * this.x;
+    let offset = 0.2 * this.x;
     _.zip(widths, heights).forEach(([w, h]) => {
       this.drawBuilding(
         offset,
@@ -46,6 +44,7 @@ export class Ground {
     });
   }
 
+
   drawBuilding(x: number, y: number, width: number, height: number) {
     noStroke();
     rect(x, y, width, height);
@@ -65,9 +64,14 @@ export class Ground {
   }
 
   drawWindow(x: number, y: number, width: number, height: number) {
-    noStroke();
     const col = color(random(160, 250));
     fill(col);
     rect(x, y, width, height);
+  }
+
+  draw() {
+    for (let i = 0; i < 1000; ++i) {
+      this.drawBuilding(this.x * i, this.y + 20, width, height);
+    }
   }
 }

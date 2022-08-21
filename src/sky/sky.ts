@@ -16,16 +16,16 @@ export class Sky {
   clouds: Cloud[] = [];
   sun: Sun;
   moon: Moon;
-  stars: Star[];
+  stars: Star[] = [];
 
-  update(currentWeather: Weather, Speed: Vector2D) {
+  update(currentWeather: Weather, speed: Vector2D) {
     const difference = Math.abs(currentWeather.cloudiness - this.clouds.length);
     if (this.clouds.length < currentWeather.cloudiness) {
       this.addClouds(difference);
     } else {
       this.startCloudsRemoval(difference);
     }
-    this.updateClouds(currentWeather, Speed);
+    this.updateClouds(currentWeather, speed);
   }
 
   addClouds(n: number) {
@@ -44,11 +44,11 @@ export class Sky {
     }
   }
 
-  updateClouds(currentWeather: Weather, Speed: Vector2D) {
+  updateClouds(currentWeather: Weather, speed: Vector2D) {
     if (currentWeather.precipitation.value > 0) {
       this.clouds.forEach((cloud) => cloud.dropRain());
     }
-    this.clouds.forEach((cloud) => cloud.update(currentWeather, Speed));
+    this.clouds.forEach((cloud) => cloud.update(currentWeather, speed));
     this.clouds = this.clouds.filter((cloud) => !cloud.isFaded());
   }
 
