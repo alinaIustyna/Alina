@@ -48,10 +48,6 @@ export class Hero {
     } return this.speed;
   }
 
-  calculateTimePressed() {
-    let timer
-  }
-
   draw() {
     fill("white");
     const heroHeight = 30;

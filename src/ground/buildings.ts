@@ -17,11 +17,33 @@ export class Ground {
   }
 
   drawBuildings() {
-    const height = 1.2;
-    const width = 0.01;
+    const heights = ratios([0.2, 0.47, 0.3, 0.5, 0.6, 0.4, 0.46, 0.38], this.y);
+    const widths = ratios([0.13, 0.12, 0.1, 0.07, 0.1, 0.1, 0.1, 0.1], this.x);
     let offset = 0.2 * this.x;
-    this.drawBuilding(offset, this.y, width, height);
+    _.zip(widths, heights).forEach(([w, h]) => {
+      this.drawBuilding(
+        offset,
+        this.y - h + Math.abs(this.y - this.initialY),
+        w,
+        h
+      );
+      offset += w;
+    });
+
+    offset = 0;
+    _.zip(widths, heights).forEach(([w, h]) => {
+      w = 0.8 * w;
+      h = 1.2 * h;
+      this.drawBuilding(
+        offset,
+        this.y - h + Math.abs(this.y - this.initialY),
+        w,
+        h
+      );
+      offset += w;
+    });
   }
+
 
   drawBuilding(x: number, y: number, width: number, height: number) {
     noStroke();
@@ -42,13 +64,14 @@ export class Ground {
   }
 
   drawWindow(x: number, y: number, width: number, height: number) {
-    noStroke();
     const col = color(random(160, 250));
     fill(col);
     rect(x, y, width, height);
   }
 
   draw() {
-    this.drawBuilding(this.x, this.y + 20, width, height);
+    for (let i = 0; i < 1000; ++i) {
+      this.drawBuilding(this.x * i, this.y + 20, width, height);
+    }
   }
 }

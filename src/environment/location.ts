@@ -5,13 +5,14 @@ import { Ground } from "../ground/buildings";
 import { canvasWidth, canvasHeight } from "../const";
 import { Vector2D } from "../utils/vector2d";
 import { random, update } from "lodash";
-import { Road, roadYs } from "../game/road";
+import { Road } from "../game/road";
 import { Hero } from "../game/hero";
+let isKeyPressAllow = true;
 
 export class Location {
   private sky: Sky;
   private ground: Ground;
-  private cars: Car[];
+  private cars: Car;
   private roads: Road[];
   public currentRoad: number = 0;
 
@@ -25,7 +26,7 @@ export class Location {
     const carsX = random(0, canvasWidth);
     this.sky = new Sky();
     this.ground = new Ground(canvasWidth, canvasHeight);
-    this.cars = [new Car(carsX, roadYs[0]), new Car(carsX, roadYs[1]), new Car(carsX, roadYs[2])];
+    this.cars = new Car(carsX, random(roadYs[0], roadYs[2]));
     this.hero = new Hero(30, this.roads[0].y);
   }
 
@@ -33,15 +34,23 @@ export class Location {
     this.sky.update(currentWeather, speed.add(this.gravity));
     this.ground.update(speed.add(this.gravity));
     this.roads.forEach((road: Road) => road.update());
-    this.cars.forEach((cars: Car) => cars.update(currentWeather, speed));
+    this.cars.update;
 
-    if (keyIsDown(DOWN_ARROW)) {
-      this.updateCurrentRoad(-1);
-      this.hero.y = this.roads[this.currentRoad].y;
+    if (keyIsDown(DOWN_ARROW) && isKeyPressAllow) {
+      isKeyPressAllow = false;
+      setTimeout(() => {
+        this.updateCurrentRoad(-1);
+        this.hero.y = this.roads[this.currentRoad].y;
+        isKeyPressAllow = true;
+      }, 120)
     }
-    if (keyIsDown(UP_ARROW)) {
-      this.updateCurrentRoad(1);
-      this.hero.y = this.roads[this.currentRoad].y;
+    if (keyIsDown(UP_ARROW) && isKeyPressAllow) {
+      isKeyPressAllow = false;
+      setTimeout(() => {
+        this.updateCurrentRoad(1);
+        this.hero.y = this.roads[this.currentRoad].y;
+        isKeyPressAllow = true;
+      }, 120)
     }
   }
 
@@ -59,7 +68,7 @@ export class Location {
     this.sky.draw();
     this.ground.drawBuildings();
     this.roads.forEach((road: Road) => road.draw());
-    this.cars.forEach((cars: Car) => cars.draw());
+    this.cars.draw();
     this.hero.draw();
   }
 }

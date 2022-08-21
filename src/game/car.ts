@@ -4,9 +4,6 @@ import { roadYs } from "./road";
 
 export class Car {
   offset: number = 1;
-  width = 100;
-  height = 100;
-
 
   constructor(public x, public y) {
   }
@@ -17,6 +14,7 @@ export class Car {
 
   draw() {
     fill("red");
-    rect(this.x + this.offset / 1.8, this.y, 20, 15);
+    rect(this.x + this.offset, this.y, 20, 15);
+    console.log(this.x, this.y);
   }
 }
